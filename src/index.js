@@ -14,10 +14,17 @@ export default cors(router(
         const result = await Contacts.insert(person)
         return send (res, 201, result)
     }),
+    put('/:id', async (req, res) => {
+        const person = await json(req)
+        const id = req.params.id
+        const result = await Contacts.update({_id: id}, person);
+        return send(res, 200, {ok: result > 0})
+    }),
     del('/:id', async (req, res) => {
         const id = req.params.id
-        console.log(id)
         const result = await Contacts.remove({_id: id});
         return send(res, 200, {ok: result > 0})
     })
 ))
+
+
